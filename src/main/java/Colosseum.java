@@ -67,9 +67,9 @@ public class Colosseum {
      * Sorry. The defense level must be between 1 and 23: 23
      *
      * @return tempPokemon - the Pokemon we built and are going to set our fighting Pokemon to <br>
-     *         (Look, we can return objects too!)
-     *         <p>
-     *         Implement this function.
+     * (Look, we can return objects too!)
+     * <p>
+     * Implement this function.
      */
     public static Pokemon buildPokemon() {
         Pokemon tempPokemon = new Pokemon();
@@ -85,12 +85,12 @@ public class Colosseum {
         int attackPoints = a.nextInt();
         Scanner d = new Scanner(System.in);
         int defensePoints = d.nextInt();
-        while ((attackPoints > (hitPoints - 1)) || (attackPoints <= 1)) {
+        while ((attackPoints > (hitPoints - 1)) || (attackPoints < 1)) {
             Scanner a = new Scanner(System.in);
             int attackPoints = a.nextInt();
             System.out.println("Please enter in your desired attack points again.");
         }
-        while ((defensePoints > (hitPoints - attackPoints)) || (defensePoints <= 1)) {
+        while ((defensePoints > (hitPoints - attackPoints)) || (defensePoints < 1)) {
             Scanner d = new Scanner(System.in);
             int defensePoints = d.nextInt();
             System.out.println("Please enter in your desired defense points again.");
@@ -111,8 +111,13 @@ public class Colosseum {
      * Implement this function.
      */
     public static void printWhoIsAhead() {
-
-        System.out.println("Implement me!");
+        if (firstPokemon.hitPoints > secondPokemon.hitPoints) {
+            System.out.println(firstPokemon + " is currently ahead!");
+        } else if (secondPokemon.hitPoints > firstPokemon.hitPoints) {
+            System.out.println(secondPokemon + " is currently ahead!");
+        } else if (firstPokemon.hitPoints == secondPokemon.hitPoints) {
+            System.out.println("Tie score.");
+        }
     }
 
     /**
@@ -123,96 +128,100 @@ public class Colosseum {
      * Write this function.
      */
     public static void determineWinner() {
+        if (firstPokemon.hitPoints > secondPokemon.hitPoints) {
+            System.out.println(firstPokemon + " is the winner!");
+        } else if (secondPokemon.hitPoints > firstPokemon.hitPoints) {
+            System.out.println(secondPokemon + " is the winner!");
 
-        System.out.println("Implement me!");
-    }
-
-    /**
-     * Initializes the member Pokemons.
-     * <p>
-     * You do not need to modify this function.
-     */
-    public static void initializePokemon() {
-        System.out.println("Player 1, build your Pokemon!");
-        System.out.println("=================");
-        firstPokemon = buildPokemon();
-        firstPokemon.name = "Chuchu";
-
-        System.out.println("");
-
-        System.out.println("Player 2, build your Pokemon!");
-        System.out.println("==================");
-        secondPokemon = buildPokemon();
-        secondPokemon.name = "Xyz";
-    }
-
-    /**
-     * Determines the order of which Pokemon will go first.
-     * <p>
-     * Uses a 2-sided die to roll for first.
-     * <p>
-     * You do not need to modify this function.
-     */
-    public static void determineOrder() {
-        /*
-         * Use random throw to decide ordering.
-         */
-        final Dice d2 = new Dice(2);
-        System.out.println("\nPlayer 1 will roll a D2, to decide who goes first.");
-        final int firstTurn = d2.roll();
-        System.out.print("Player 1 rolls a " + firstTurn + " and will go ");
-        if (firstTurn == 1) {
-            System.out.print("first");
-        } else {
-            /*
-             * Swap Pokemon for second outcome.
-             */
-            System.out.print("second");
-            Pokemon tempPokemon = new Pokemon();
-            tempPokemon = firstPokemon;
-            firstPokemon = secondPokemon;
-            secondPokemon = tempPokemon;
         }
-    }
-    /**
-     * Conducts the Pokemon battle.
-     * <p>
-     * You do not need to modify this function.
-     *
-     * @param unused unused input arguments.
-     */
-    public static void main(final String[] unused) {
-        myScan = new Scanner(System.in);
-        initializePokemon();
-        determineOrder();
-        System.out.println("");
-        boolean ifWinner = false;
 
-        /*
-         * Let the battle begin!
+        /**
+         * Initializes the member Pokemons.
+         * <p>
+         * You do not need to modify this function.
          */
-        for (int i = 0; i < MAX_NUM_ROUNDS && !ifWinner; i++) {
-            System.out.println("");
-            System.out.println("Round " + (i + 1) + "!");
+        public static void initializePokemon () {
+            System.out.println("Player 1, build your Pokemon!");
+            System.out.println("=================");
+            firstPokemon = buildPokemon();
+            firstPokemon.name = "Chuchu";
+
             System.out.println("");
 
-            ifWinner = firstPokemon.attack(secondPokemon);
-            if (!ifWinner) {
-                ifWinner = secondPokemon.attack(firstPokemon);
-                if (!ifWinner) {
-                    printWhoIsAhead();
-                }
+            System.out.println("Player 2, build your Pokemon!");
+            System.out.println("==================");
+            secondPokemon = buildPokemon();
+            secondPokemon.name = "Xyz";
+        }
 
+        /**
+         * Determines the order of which Pokemon will go first.
+         * <p>
+         * Uses a 2-sided die to roll for first.
+         * <p>
+         * You do not need to modify this function.
+         */
+        public static void determineOrder () {
+            /*
+             * Use random throw to decide ordering.
+             */
+            final Dice d2 = new Dice(2);
+            System.out.println("\nPlayer 1 will roll a D2, to decide who goes first.");
+            final int firstTurn = d2.roll();
+            System.out.print("Player 1 rolls a " + firstTurn + " and will go ");
+            if (firstTurn == 1) {
+                System.out.print("first");
+            } else {
+                /*
+                 * Swap Pokemon for second outcome.
+                 */
+                System.out.print("second");
+                Pokemon tempPokemon = new Pokemon();
+                tempPokemon = firstPokemon;
+                firstPokemon = secondPokemon;
+                secondPokemon = tempPokemon;
             }
         }
-        System.out.println("");
 
-        if (!ifWinner) {
-            System.out.println("It's a tie!");
-        } else {
-            determineWinner();
+        /**
+         * Conducts the Pokemon battle.
+         * <p>
+         * You do not need to modify this function.
+         *
+         * @param unused unused input arguments.
+         */
+        public static void main ( final String[] unused){
+            myScan = new Scanner(System.in);
+            initializePokemon();
+            determineOrder();
+            System.out.println("");
+            boolean ifWinner = false;
+
+            /*
+             * Let the battle begin!
+             */
+            for (int i = 0; i < MAX_NUM_ROUNDS && !ifWinner; i++) {
+                System.out.println("");
+                System.out.println("Round " + (i + 1) + "!");
+                System.out.println("");
+
+                ifWinner = firstPokemon.attack(secondPokemon);
+                if (!ifWinner) {
+                    ifWinner = secondPokemon.attack(firstPokemon);
+                    if (!ifWinner) {
+                        printWhoIsAhead();
+                    }
+
+                }
+            }
+            System.out.println("");
+
+            if (!ifWinner) {
+                System.out.println("It's a tie!");
+            } else {
+                determineWinner();
+            }
+
+            myScan.close();
         }
-
-        myScan.close();
     }
-}
