@@ -43,7 +43,7 @@ public class Colosseum {
      * <p>
      * Requirements we should check the user for: <br>
      * - Hit points are between 1 and MAX_HIT_POINTS <br>
-     * - No more than 50 points are split between attack level and defense leve <br>
+     * - No more than 50 points are split between attack level and defense level <br>
      * - Attack level and defense level must have at least 1 point each <br>
      * Example of how this will look to the user:
      * <p>
@@ -74,6 +74,27 @@ public class Colosseum {
     public static Pokemon buildPokemon() {
         Pokemon tempPokemon = new Pokemon();
         return tempPokemon;
+        Scanner hp = new Scanner(System.in);
+        int hitPoints = hp.nextInt();
+        while ((hitPoints > MAX_HIT_POINTS) || (hitPoints <= 0)) {
+            Scanner hp = new Scanner(System.in);
+            int hitPoints = hp.nextInt();
+            System.out.println("Please enter in your desired hit points again.");
+        }
+        Scanner a = new Scanner(System.in);
+        int attackPoints = a.nextInt();
+        Scanner d = new Scanner(System.in);
+        int defensePoints = d.nextInt();
+        while ((attackPoints > (hitPoints - 1)) || (attackPoints <= 1)) {
+            Scanner a = new Scanner(System.in);
+            int attackPoints = a.nextInt();
+            System.out.println("Please enter in your desired attack points again.");
+        }
+        while ((defensePoints > (hitPoints - attackPoints)) || (defensePoints <= 1)) {
+            Scanner d = new Scanner(System.in);
+            int defensePoints = d.nextInt();
+            System.out.println("Please enter in your desired defense points again.");
+        }
     }
 
     /**
@@ -90,6 +111,7 @@ public class Colosseum {
      * Implement this function.
      */
     public static void printWhoIsAhead() {
+
         System.out.println("Implement me!");
     }
 
@@ -101,6 +123,7 @@ public class Colosseum {
      * Write this function.
      */
     public static void determineWinner() {
+
         System.out.println("Implement me!");
     }
 
